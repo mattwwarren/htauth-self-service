@@ -1,20 +1,20 @@
 <?php
 include 'config.php';
 
-$password="baz";
+$check_pw=$_POST['confirm'];
 
 if (isset($_POST['pass'])){
   $pass = isset($_POST['pass']) ? $_POST['pass'] : '';
 
-  if ($pass != $password){
-    showForm("Wrong password");
+  if ($pass != $check_pw){
+    showForm("Passwords do not match!");
     exit();
   } else {
     showForm("Match!");
     exit();
   }
 } else {
-  showForm("No password provided!");
+  showForm("Please provide a password");
   exit();
 }
 ?>
