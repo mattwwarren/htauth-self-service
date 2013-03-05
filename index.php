@@ -1,5 +1,7 @@
 <?php
 include 'user.php';
+include 'group.php';
+include 'config.php';
 function showForm($error="LOGIN"){
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
@@ -24,6 +26,27 @@ function showForm($error="LOGIN"){
         <input type="submit" name="submit_user" value="Submit"/>
         </td>
       </tr>
+    <tr>
+      <td><label>Add to Groups: </label>&nbsp;</td>
+      <td><select name="groupselect[]" size="10" multiple="multiple" tabindex="1">
+        <?php
+        $groupfile = file('/www/group');
+        $i = 1;
+        foreach ($groupfile as $line){
+          $split_line = split(":", $line);
+          ++$i
+        ?>
+        <option value="<?php echo $i; ?>"><?php echo $split_line[0]; ?></option>
+        <?php
+        }
+        ?>
+      </select>
+      </td>
+    </tr>
+    <tr>
+      <td>&nbsp;</td>
+      <td><input type="submit" name="Submit" value="Submit" tabindex="2" /></td>
+    </tr>
     </table>
   </form>
 </body>
