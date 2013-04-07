@@ -1,4 +1,5 @@
 <?php
+// These includes are order independent and go at the top
 include 'user.php';
 include 'config.php';
 function showForm($error="LOGIN"){
@@ -26,6 +27,8 @@ function showForm($error="LOGIN"){
         </td>
       </tr>
     <?php
+    // This displays the group portion of the form and is in a separate file for text parsing
+    // TODO: leave this out if the group file doesn't exist?
     include 'group.php';
     ?>
     <tr>
