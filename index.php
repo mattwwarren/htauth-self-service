@@ -1,4 +1,12 @@
 <?php
+/**
+index.php
+
+Author - Matt Warren <matt (at) warrencomputing (dot) net>
+Last Modified - 07/Apr/2013
+
+Pretty self-explanatory, shows the basic form
+**/
 // These includes are order independent and go at the top
 include 'user.php';
 include 'config.php';

@@ -1,4 +1,13 @@
 <?php
+/**
+group.php
+
+Author - Matt Warren <matt (at) warrencomputing (dot) net>
+Last Modified - 07/Apr/2013
+
+This file handles the display of possible authentication groups
+**/
+
 // Include crap here for configs and other necessary variables
 include 'config.php'
 ?>

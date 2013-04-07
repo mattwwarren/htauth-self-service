@@ -1,4 +1,14 @@
 <?php
+/**
+user.php
+
+Author - Matt Warren <matt (at) warrencomputing (dot) net>
+Last Modified - 07/Apr/2013
+
+This file handles all the user creation functions.  
+Set the username and password in the password file 
+and then create/append to an entry in the group file.
+**/
 include 'config.php';
 
 // Grab some plain variables from the form submission
