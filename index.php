@@ -1,6 +1,5 @@
 <?php
 include 'user.php';
-include 'group.php';
 include 'config.php';
 function showForm($error="LOGIN"){
 ?>
@@ -26,29 +25,9 @@ function showForm($error="LOGIN"){
         <input type="submit" name="submit_user" value="Submit"/>
         </td>
       </tr>
-    <tr>
-      <td><label>Add to Groups: </label>&nbsp;</td>
-      <td><select name="groupselect[]" size="10" multiple="multiple" tabindex="1">
-        <?php
-        $groupfile = file('/www/group2');
-        if (file_exists($groupfile)){
-          $i = 1;
-          foreach ($groupfile as $line){
-            $split_line = split(":", $line);
-            ++$i
-        ?>
-        <option value="<?php echo $i; ?>"><?php echo $split_line[0]; ?></option>
-        <?php
-          }
-        } else {
-        ?>
-        <option value="nofile">No group file exists!</option>
-        <?php
-        }
-        ?>
-      </select>
-      </td>
-    </tr>
+    <?php
+    include 'group.php';
+    ?>
     <tr>
       <td>&nbsp;</td>
       <td><input type="submit" name="Submit" value="Submit" tabindex="2" /></td>
