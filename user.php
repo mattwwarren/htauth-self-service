@@ -13,14 +13,15 @@ include 'config.php';
 
 // Grab some plain variables from the form submission
 $check_pw=$_POST['confirm'];
-$username=$_POST['uname'] . ':';
+$username=$_POST['uname'];
+$groups=$_POST['groupselect'];
 
 // If the password is set, start processing the form with some basic structures
-if (isset($_POST['pass'])){
+if (isset($_POST['pass']) and ($username != '')){
   $pass = isset($_POST['pass']) ? $_POST['pass'] : '';
   $form_str = "Match!";
   $crypt_pass = crypt($pass, base64_encode($pass));
-  $unpw_line = $username . $crypt_pass;
+  $unpw_line = $username . ':' . $crypt_pass;
   $passfile = array();
   $to_write = array();
   $stored_un = array();
@@ -41,7 +42,7 @@ if (isset($_POST['pass'])){
       // Parse the password file
       foreach ($passfile as $line){
         $split_line = split(":", $line);
-        $stored_un[] = $split_line[0] . ':';
+        $stored_un[] = $split_line[0];
         $stored_pw[] = $split_line[1];
       }
       
@@ -59,12 +60,12 @@ if (isset($_POST['pass'])){
         $stored_pw[] = $crypt_pass;
       }
 
-      for ($i = 0; $i <= $count; $i++){
+      for ($i = 0; $i < $count; $i++){
         $curr_un = $stored_un[$i];
         $curr_pw = $stored_pw[$i];
-        $to_write[] = $curr_un . $curr_pw;
+        $to_write[] = $curr_un . ':' . $curr_pw;
       }
-      
+
       // This actually handles all the writing, once we've determined how to write it.
       $fp = fopen($htpw_file, 'w');
       fwrite($fp, implode("",$to_write));
@@ -79,6 +80,31 @@ if (isset($_POST['pass'])){
       fclose($fp);
     }
 
+    // Get all possible groups
+    $groupfile = file($htgp_file);
+    $groupcount = count($groupfile);
+
+    // Parse the group file
+    foreach ($groupfile as $line){
+      $split_line = split(":", $line);
+      $stored_group[] = $split_line[0];
+      $stored_users[] = $split_line[1];
+    }
+    
+  // Open the group file and find the groups to edit
+  $fp = fopen($htgp_file, 'w');
+  foreach ($stored_group as $group){
+    $group_index = array_search($group , $stored_group);
+    $users_toadd = $stored_users[$group_index];
+    // If the current group is in the selected list, add our user
+    if (in_array($group , $groups)){
+      $users_toadd = " " . trim($users_toadd) .  " $username" . "\r\n";
+    }
+    $gp_line = $group . ':' . $users_toadd;
+    fwrite($fp, $gp_line);
+  }
+  fclose($fp);
+
   // Display the form again with the correct success/error message
   showForm($form_str);
   exit();
@@ -86,7 +112,7 @@ if (isset($_POST['pass'])){
 
 } else {
   // No password provided, complain accordingly.
-  showForm("Please provide a password");
+  showForm("Please provide a username and password.");
   exit();
 }
 ?>

@@ -29,19 +29,15 @@ function showForm($error="LOGIN"){
       <tr>
         <td>Confirm Password: <input type="password" name="confirm"/></td>
       </tr>
-      <tr>
-        <td align="center"><br/>
-        <input type="submit" name="submit_user" value="Submit"/>
-        </td>
-      </tr>
     <?php
     // This displays the group portion of the form and is in a separate file for text parsing
     // TODO: leave this out if the group file doesn't exist?
     include 'group.php';
     ?>
     <tr>
-      <td>&nbsp;</td>
-      <td><input type="submit" name="Submit" value="Submit" tabindex="2" /></td>
+      <td align="center"><br/>
+      <input type="submit" name="submit_user" value="Submit"/>
+      </td>
     </tr>
     </table>
   </form>
