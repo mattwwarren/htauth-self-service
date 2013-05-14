@@ -41,6 +41,11 @@ function showForm($error="LOGIN"){
     </tr>
     </table>
   </form>
+  <div class=sidebar>
+  <?php
+  include 'readme.php';
+  ?>
+  </div>
 </body>
 </html>
 
